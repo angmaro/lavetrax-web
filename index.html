@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lavetrax - Artículos promocionales e impresos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #005a87;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      color: #005a87;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #005a87;
+      padding-bottom: 5px;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    footer {
+      background: #222;
+      color: #ddd;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+    /* Formulario */
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #ccc;
+      max-width: 500px;
+      margin-top: 20px;
+    }
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    form button {
+      margin-top: 15px;
+      background: #005a87;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover {
+      background: #004466;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      section {
+        margin: 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Lavetrax</h1>
+  <p>Artículos promocionales e impresos que impulsan tu marca</p>
+</header>
+
+<section id="sobre">
+  <h2>Sobre Lavetrax</h2>
+  <p>
+    En <strong>Lavetrax</strong> nos dedicamos a la distribución y comercialización de artículos promocionales e impresos en México. Nos enfocamos en ofrecer productos de calidad que ayudan a las empresas a fortalecer su presencia y conectar con sus clientes de manera efectiva.
+  </p>
+</section>
+
+<section id="productos">
+  <h2>Nuestros productos</h2>
+  <ul>
+    <li>Artículos personalizados para eventos y campañas.</li>
+    <li>Material POP, flyers, brochures y catálogos impresos.</li>
+    <li>Regalos corporativos y merchandising.</li>
+    <li>Soluciones adaptadas a tus necesidades y presupuesto.</li>
+  </ul>
+</section>
+
+<section id="contacto">
+  <h2>Contacto</h2>
+  <p>¿Quieres más información o cotizar un pedido? Escríbenos o llámanos, estamos listos para ayudarte.</p>
+  <p><strong>Correo:</strong> contacto@lavetrax.mx<br />
+     <strong>Teléfono:</strong> +52 55 1234 5678</p>
+
+  <form id="contactForm" onsubmit="return enviarFormulario(event)">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required />
+
+    <label for="email">Correo electrónico</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="mensaje">Mensaje</label>
+    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+  <p id="respuesta" style="color: green; margin-top:10px;"></p>
+</section>
+
+<footer>
+  © 2025 Lavetrax. Todos los derechos reservados.
+</footer>
+
+<script>
+  // Formulario simple que abre mail con datos
+  function enviarFormulario(event) {
+    event.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    if (!nombre || !email || !mensaje) {
+      alert('Por favor, completa todos los campos.');
+      return false;
+    }
+
+    const asunto = encodeURIComponent('Contacto desde Lavetrax');
+    const cuerpo = encodeURIComponent(
+      `Nombre: ${nombre}\nCorreo: ${email}\nMensaje:\n${mensaje}`
+    );
+
+    window.location.href = `mailto:contacto@lavetrax.mx?subject=${asunto}&body=${cuerpo}`;
+    document.getElementById('respuesta').textContent = '¡Gracias por contactarnos! Se abrirá tu cliente de correo para enviar el mensaje.';
+    return true;
+  }
+</script>
+
+</body>
+</html>
