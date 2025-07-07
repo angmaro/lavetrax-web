@@ -595,13 +595,13 @@ links.forEach(link => {
     e.preventDefault();
 
     const form = e.target;
-    
-    // ❌ No enviamos nada a Formspree
-    // const data = new FormData(form);
-    // const response = await fetch(form.action, { ... });
+    const data = new FormData(form);
 
-    // ✅ Simulamos respuesta exitosa sin gastar submissions
-    const response = { ok: true };
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
 
     if (response.ok) {
       form.reset();
