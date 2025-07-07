@@ -424,10 +424,14 @@
        &iquest;Listo para impulsar tu marca? Escr&iacute;benos y recibe una cotizaci&oacute;n personalizada.
       </p>
      </div>
-     <form class="form-contacto" action="https://formsubmit.co/ventas@lavetrax.com" method="POST">
-  <!-- Redirección segura con hash -->
-  <input type="hidden" name="_next" value="https://lavetrax.com/#gracias">
-  <input type="hidden" name="_captcha" value="false">
+    <!-- ✅ MENSAJE DE ÉXITO -->
+<p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center;">
+  ¡Gracias! Tu cotización ha sido enviada. Nuestro equipo te contactará en breve.
+</p>
+
+<!-- ✅ FORMULARIO USANDO FORMSPREE -->
+<form class="form-contacto" action="https://formspree.io/f/xldnydap" method="POST">
+  <input type="hidden" name="_redirect" value="https://lavetrax.com/?exito=true">
 
   <label for="nombre">Nombre completo</label>
   <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
@@ -439,11 +443,6 @@
   <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué necesitas" rows="5" required></textarea>
 
   <button type="submit" class="btn btn-primary">Enviar</button>
-
-  <!-- Mensaje de éxito -->
-  <p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center;">
-    ¡Gracias! Tu cotización ha sido enviada. Nuestro equipo te contactará en breve.
-  </p>
 </form>
     </div>
    </section>
@@ -595,18 +594,20 @@ links.forEach(link => {
   </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === "#gracias") {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("exito") === "true") {
       const mensaje = document.getElementById("mensaje-exito");
       if (mensaje) {
         mensaje.style.display = "block";
         setTimeout(() => {
           mensaje.style.display = "none";
-          history.replaceState(null, null, " "); // limpia el hash
+          history.replaceState(null, "", window.location.pathname); // limpia el ?exito
         }, 5000);
       }
     }
   });
 </script>
+
 
  </body>
 </html>
