@@ -431,7 +431,7 @@
 
 <!-- ✅ FORMULARIO USANDO FORMSPREE -->
 <form class="form-contacto" action="https://formspree.io/f/xldnydap" method="POST">
-  <input type="hidden" name="_redirect" value="https://lavetrax.com/?exito=true">
+  <input type="hidden" name="_redirect" value="https://lavetrax.com/#exito">
 
   <label for="nombre">Nombre completo</label>
   <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
@@ -594,20 +594,18 @@ links.forEach(link => {
   </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("exito") === "true") {
+    if (window.location.hash === "#exito") {
       const mensaje = document.getElementById("mensaje-exito");
       if (mensaje) {
         mensaje.style.display = "block";
         setTimeout(() => {
           mensaje.style.display = "none";
-          history.replaceState(null, "", window.location.pathname); // limpia el ?exito
+          history.replaceState(null, "", window.location.pathname); // limpia el hash
         }, 5000);
       }
     }
   });
 </script>
-
 
  </body>
 </html>
