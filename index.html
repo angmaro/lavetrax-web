@@ -425,28 +425,26 @@
       </p>
      </div>
      <form class="form-contacto" action="https://formsubmit.co/ventas@lavetrax.com" method="POST">
-  <input type="hidden" name="_next" value="https://lavetrax.com/?exito=true">
-      <label for="nombre">
-       Nombre completo
-      </label>
-      <input autocomplete="name" id="nombre" name="nombre" placeholder="Tu nombre" required="" type="text"/>
-      <label for="email">
-       Correo electr&oacute;nico
-      </label>
-      <input autocomplete="email" id="email" name="email" placeholder="tuemail@ejemplo.com" required="" type="email"/>
-      <label for="mensaje">
-       Mensaje
-      </label>
-      <textarea id="mensaje" name="mensaje" placeholder="Cu&eacute;ntanos qu&eacute; necesitas" required="" rows="5"></textarea>
-      <!-- No redireccionar -->
-      <input name="_captcha" type="hidden" value="false"/>
-      <button class="btn btn-primary" type="submit">
-       Enviar
-      </button>
-      <p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center;">
-       &iexcl;Gracias! Tu cotizaci&oacute;n ha sido enviada. Nuestro equipo te contactar&aacute; en breve.
-      </p>
-     </form>
+  <!-- Redirección segura con hash -->
+  <input type="hidden" name="_next" value="https://lavetrax.com/#exito">
+  <input type="hidden" name="_captcha" value="false">
+
+  <label for="nombre">Nombre completo</label>
+  <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+
+  <label for="email">Correo electrónico</label>
+  <input type="email" id="email" name="email" placeholder="tuemail@ejemplo.com" autocomplete="email" required>
+
+  <label for="mensaje">Mensaje</label>
+  <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué necesitas" rows="5" required></textarea>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+
+  <!-- Mensaje de éxito -->
+  <p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center;">
+    ¡Gracias! Tu cotización ha sido enviada. Nuestro equipo te contactará en breve.
+  </p>
+</form>
     </div>
    </section>
    <!-- FOOTER -->
@@ -597,15 +595,14 @@ links.forEach(link => {
   </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('exito') === 'true') {
+    if (window.location.hash === '#exito') {
       const mensaje = document.getElementById('mensaje-exito');
       if (mensaje) {
         mensaje.style.display = 'block';
         setTimeout(() => {
           mensaje.style.display = 'none';
         }, 5000);
-        // Limpia la URL para que no quede ?exito=true
+        // Limpia el hash para que no se repita al recargar
         history.replaceState(null, '', window.location.pathname);
       }
     }
