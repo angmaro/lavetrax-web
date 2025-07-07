@@ -426,7 +426,7 @@
      </div>
      <form class="form-contacto" action="https://formsubmit.co/ventas@lavetrax.com" method="POST">
   <!-- Redirección segura con hash -->
-  <input type="hidden" name="_next" value="https://lavetrax.com/index.html?exito=true">
+  <input type="hidden" name="_next" value="https://lavetrax.com/#gracias">
   <input type="hidden" name="_captcha" value="false">
 
   <label for="nombre">Nombre completo</label>
@@ -595,18 +595,18 @@ links.forEach(link => {
   </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('exito') === 'true') {
-      const mensaje = document.getElementById('mensaje-exito');
+    if (window.location.hash === "#gracias") {
+      const mensaje = document.getElementById("mensaje-exito");
       if (mensaje) {
-        mensaje.style.display = 'block';
+        mensaje.style.display = "block";
         setTimeout(() => {
-          mensaje.style.display = 'none';
+          mensaje.style.display = "none";
+          history.replaceState(null, null, " "); // limpia el hash
         }, 5000);
-        history.replaceState(null, '', window.location.pathname);
       }
     }
   });
 </script>
+
  </body>
 </html>
