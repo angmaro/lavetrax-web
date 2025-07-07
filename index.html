@@ -264,7 +264,7 @@
       </article>
       <article class="oferta">
        <h3>
-        🛒 25% en tu Primer Compra
+        🛒 25% en tu Primer Compra en línea
        </h3>
        <p>
         &iquest;Es tu primera vez con nosotros? Obt&eacute;n un
@@ -424,7 +424,8 @@
        &iquest;Listo para impulsar tu marca? Escr&iacute;benos y recibe una cotizaci&oacute;n personalizada.
       </p>
      </div>
-     <form action="https://formsubmit.co/ventas@lavetrax.com" class="form-contacto" method="POST" onsubmit="return enviarFormulario(event);">
+     <form action="https://formsubmit.co/ventas@lavetrax.com" method="POST">
+  <input type="hidden" name="_next" value="https://lavetrax.com/?exito=true">
       <label for="nombre">
        Nombre completo
       </label>
@@ -439,7 +440,6 @@
       <textarea id="mensaje" name="mensaje" placeholder="Cu&eacute;ntanos qu&eacute; necesitas" required="" rows="5"></textarea>
       <!-- No redireccionar -->
       <input name="_captcha" type="hidden" value="false"/>
-      <input name="_next" type="hidden" value=""/>
       <button class="btn btn-primary" type="submit">
        Enviar
       </button>
@@ -449,43 +449,6 @@
      </form>
     </div>
    </section>
-   <!-- JS simple para mostrar mensaje -->
-   <script>
-    function enviarFormulario(event) {
-    event.preventDefault(); // Evita que la página recargue o redireccione
-
-    const form = event.target;
-
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        // Mostrar mensaje de éxito
-        const mensaje = document.getElementById('mensaje-exito');
-        mensaje.style.display = 'block';
-        form.reset();
-
-        // Ocultar mensaje a los 5 segundos
-        setTimeout(() => {
-          mensaje.style.display = 'none';
-        }, 5000);
-      } else {
-        alert('Hubo un error al enviar el formulario. Intenta nuevamente.');
-      }
-    })
-    .catch(error => {
-      alert('Error al enviar. Verifica tu conexión o intenta más tarde.');
-      console.error(error);
-    });
-
-    return false; // Previene el envío tradicional
-  }
-   </script>
    <!-- FOOTER -->
    <footer class="footer">
     <div class="container">
@@ -632,5 +595,21 @@ links.forEach(link => {
   }, true);
 });
   </script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('exito') === 'true') {
+      const mensaje = document.getElementById('mensaje-exito');
+      if (mensaje) {
+        mensaje.style.display = 'block';
+        setTimeout(() => {
+          mensaje.style.display = 'none';
+        }, 5000);
+        // Limpia la URL para que no quede ?exito=true
+        history.replaceState(null, '', window.location.pathname);
+      }
+    }
+  });
+</script>
  </body>
 </html>
