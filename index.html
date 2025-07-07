@@ -75,6 +75,19 @@
 
   gtag('config', 'G-WBT4XYQQN2');
 </script>  
+
+  <!-- 🔐 Redirección automática a HTTPS y quitar www -->
+<script>
+  // Redirige a HTTPS si entraron por HTTP
+  if (location.protocol !== 'https:') {
+    location.href = 'https://' + location.hostname + location.pathname + location.search;
+  }
+
+  // Redirige de www.lavetrax.com a lavetrax.com
+  if (location.hostname === 'www.lavetrax.com') {
+    location.href = 'https://lavetrax.com' + location.pathname + location.search;
+  }
+</script>
  </head>
  <body>
   <div class="urgency-bar">
