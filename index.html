@@ -424,15 +424,8 @@
        &iquest;Listo para impulsar tu marca? Escr&iacute;benos y recibe una cotizaci&oacute;n personalizada.
       </p>
      </div>
-    <!-- ✅ MENSAJE DE ÉXITO -->
-<p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center;">
-  ¡Gracias! Tu cotización ha sido enviada. Nuestro equipo te contactará en breve.
-</p>
 
-<!-- ✅ FORMULARIO USANDO FORMSPREE -->
-<form class="form-contacto" action="https://formspree.io/f/xldnydap" method="POST">
-  <input type="hidden" name="_redirect" value="https://lavetrax.com/#exito">
-
+<form class="form-contacto" action="https://formspree.io/f/xldnydap" method="POST" id="form-contacto">
   <label for="nombre">Nombre completo</label>
   <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
 
@@ -443,6 +436,11 @@
   <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué necesitas" rows="5" required></textarea>
 
   <button type="submit" class="btn btn-primary">Enviar</button>
+
+  <!-- ✅ MENSAJE DE ÉXITO -->
+  <p id="mensaje-exito" style="display: none; color: green; font-weight: bold; text-align: center; margin-top: 1rem;">
+    ¡Gracias! Tu cotización ha sido enviada. Nuestro equipo te contactará en breve.
+  </p>
 </form>
     </div>
    </section>
@@ -593,19 +591,31 @@ links.forEach(link => {
 });
   </script>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === "#exito") {
+  document.getElementById("form-contacto").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      form.reset();
       const mensaje = document.getElementById("mensaje-exito");
-      if (mensaje) {
-        mensaje.style.display = "block";
-        setTimeout(() => {
-          mensaje.style.display = "none";
-          history.replaceState(null, "", window.location.pathname); // limpia el hash
-        }, 5000);
-      }
+      mensaje.style.display = "block";
+      setTimeout(() => {
+        mensaje.style.display = "none";
+      }, 5000);
+    } else {
+      alert("Hubo un error al enviar tu mensaje. Por favor intenta de nuevo.");
     }
   });
 </script>
+
 
  </body>
 </html>
